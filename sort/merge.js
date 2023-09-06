@@ -1,12 +1,4 @@
-// const fs = require('fs');
-// const input = fs.readFileSync('/dev/stdin').toString().trim();
-
-const input = ["10", "40", "30", "60", "30"];
-let arr = [parseInt(input[0]),
-            parseInt(input[1]),
-            parseInt(input[2]),
-            parseInt(input[3]),
-            parseInt(input[4])];
+const input = [1, 4, 3, 6, 5];
 
 function merge(left, right, arr) {
     let temp = [];
@@ -42,5 +34,5 @@ function partition(left, right, arr) {
     }
 }
 
-partition(0, 4, arr);
-console.log(arr[2]);
+partition(0, 4, input);
+console.log(input);
