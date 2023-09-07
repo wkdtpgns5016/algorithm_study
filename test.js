@@ -1,46 +1,84 @@
 // const fs = require('fs');
 // const input = fs.readFileSync('/dev/stdin').toString().trim();
 
-const input = ["10", "40", "30", "60", "30"];
-let arr = [parseInt(input[0]),
-            parseInt(input[1]),
-            parseInt(input[2]),
-            parseInt(input[3]),
-            parseInt(input[4])];
+// const input = ["13", 
+//             "but", 
+//             "i", 
+//             "wont", 
+//             "hesitate", 
+//             "no", 
+//             "more", 
+//             "no", 
+//             "more", 
+//             "it", 
+//             "cannot", 
+//             "wait", 
+//             "im", 
+//             "yours"];
 
-function merge(left, right, arr) {
-    let temp = [];
-    for (let i = 0; i <= right; i++)
-        temp[i] = arr[i];
-    
-    let mid = Math.floor((left+right)/2);
-    let tleft = left;
-    let tright = right;
-    let current = left;
+// const n = parseInt(input[0]);
+// let arr = [];
+// for (let i = 0; i < input.length - 1; i++)
+//     arr[i] = input[i + 1];
 
-    while (tleft <= mid && tright <= right) {
-        if (temp[tleft] <= temp[tright]) {
-            arr[current++] = temp[tleft++];
-        }
-        else {
-            arr[current++] = temp[tright++];
-        }
+// for (let i = 0; i < arr.length - 1; i++) {
+//     for (let j = i + 1; j < arr.length; j++) {
+//         if (arr[i].length > arr[j].length) {
+//             let temp = arr[i];
+//             arr[i] = arr[j];
+//             arr[j] = temp;
+//         }
+//         else if (arr[i].length == arr[j].length) {
+//             if (arr[i] > arr[j]) {
+//                 let temp = arr[i];
+//                 arr[i] = arr[j];
+//                 arr[j] = temp;
+//             }
+//             else if (arr[i] === arr[j]) {
+//                 arr.splice(j, 1);
+//                 i--;
+//             }
+//         }
+//     }
+// }
+
+// for (let i = 0; i < arr.length; i++)
+//     console.log(arr[i]);
+
+const input = [1, 4, 3, 6, 5];
+let sort = [];
+
+function merge(left, right, mid, arr) {
+    let i = left;
+    let j = mid + 1;
+    let k = left;
+
+    while (i <= mid && j <= right) {
+        if (arr[j] <= arr[j])
+            sort[k++] = arr[i++];
+        else
+            sort[k++] = arr[j++];
     }
 
-    let remain = mid - tleft;
-    for (let i = 0; i<= remain; i++) {
-        arr[current + i] = temp[tleft + i];
+    if (i > mid) {
+        for (let l = j; l <= right; l++)
+            sort[k++] = arr[l];
+    }
+    else {
+        for (let l = i; l <= mid; l++)
+            sort[k++] = arr[l];
     }
 }
 
-function partition(left, right, arr) {
+function merge_sort(left, right, arr) {
+    let mid;
     if (left < right) {
-        let mid = Math.floor((left+right)/2);
-        partition(left, mid, arr);
-        partition(mid+1, right, arr);
-        merge(left, right, arr);
+        mid = Math.floor((left + right) / 2);
+        merge_sort(left, mid, arr);
+        merge_sort(mid + 1, right, arr);
+        merge(left, right, mid, arr);
     }
 }
 
-partition(0, 4, arr);
-console.log(arr[2]);
+merge_sort(0, input.length - 1, input);
+console.log(sort);
